@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ui segment">
+                    <div class="ui form">
+                        {{ form_start(form,{'atrr':{novalidate: 'novalidate'}}) }}
+
+                        <legend><h3 class="ui header">New Book</h3></legend>
+                        <hr/>
+                        {% for field in form %}
+                            {% if field.vars.name != '_token' %}
+                                <div class="field">
+                                    <label>{{ form_label(field) }}</label>
+                                    {{ form_widget(field) }}
+                                    {{ form_errors(field) }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" id="myBtn" class="ui primary button" style="margin-left: 126px;">Submit
+                        </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

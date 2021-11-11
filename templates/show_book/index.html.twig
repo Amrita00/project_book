@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}View Book{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="men">
+                    <div class="ui vertical menu">
+
+                        <a href="{{ path('add_book') }}" class="item">
+                            <i class="book icon"></i>
+                            Add New Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+
+                <table id="example" class="ui celled structured table">
+                    <tr>
+                        <th colspan="2" style="text-align: center">View Books</th>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <th>Book Name</th>
+                        <th>Action</th>
+
+                    </tr>
+                    {% for x in book %}
+                        <tr>
+                            <td>
+                                <img src="{{ asset('images/' ~ (x.getImage())) }}">
+                            </td>
+                            <td data-label="Book Name">{{ x.name }}</td>
+                            <td>
+                                <div class="ui buttons">
+                                    <button class="ui button">
+                                        <a href="{{ path('view_book', {id: x.id}) }}">View</a>
+                                    </button>
+                                    <div class="or" data-text="or"></div>
+                                    <button class="ui positive button">
+                                        <a href="{{ path('edit_book', {id: x.id}) }}">Edit</a>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
