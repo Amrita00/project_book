@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}View Detail!{% endblock %}
+
+{% block body %}
+    {% include('partials/menu.html.twig') %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="view">
+                <img class="poster" src="{{ asset('images/' ~ (view.getImage())) }}">
+            </div>
+            <div class="col-md-8">
+
+                <table  class="ui celled structured table">
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Description</th>
+                        <th>Author</th>
+
+                    </tr>
+                    <tr>
+                        <td>{{ view.name }}</td>
+                        <td>{{ view.description }}</td>
+                        <td>{{ view.author }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

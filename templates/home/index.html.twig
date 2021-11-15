@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+    {% include('partials/navbar.html.twig') %}
+    {% include 'partials/list.html.twig' with home %}
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">
+                {% for message in app.flashes('success') %}
+                    <div class="ui success message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="ui segment">
+                    <div class="ui form">
+                        {{ form_start(registrationForm,{'atrr':{ novalidate: 'novalidate' }}) }}
+
+                        <legend><h3 class="ui header">Register</h3></legend>
+                        <hr/>
+                        {% for field in registrationForm.children %}
+                            {% if field.vars.name != '_token' %}
+                                <div class="field">
+                                    {% if field.vars.name != 'password' %}
+                                        <label>{{ form_label(field) }}</label>
+                                    {% endif %}
+                                    {{ form_widget(field) }}
+                                    {{ form_errors(field) }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" id="myBtn" class="ui primary button" style="margin-left: 126px;">Register
+                        </button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
