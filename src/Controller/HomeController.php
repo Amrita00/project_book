@@ -20,4 +20,16 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', array('home' => $book));
     }
+
+    /**
+     * @Route("/index/user", name="user_home")
+     */
+    public function user(): Response
+    {
+        $book = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->findAll();
+
+        return $this->render('home/user_home.html.twig', array('home' => $book));
+    }
 }

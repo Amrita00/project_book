@@ -6,16 +6,7 @@
                     <div class="ui special cards">
                         {% for x in home %}
                             <div class="ui card" style="box-shadow: 10px 10px 25px 0 rgba(186,177,186,1);">
-                                <div class="blurring dimmable image">
-                                    <div class="ui dimmer">
-                                        <div class="content">
-                                            <div class="center">
-                                                <div class="ui inverted button">Show More</div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <img style="height: 90%;" src="{{ asset('images/' ~ (x.getImage())) }}">
-                                </div>
                                 <div class="content">
                                     <a class="header">{{ x.name }}</a>
                                     <div class="meta">
@@ -24,7 +15,7 @@
                                 </div>
                                 <div class="extra content" style="padding-top: 0">
                                     <div class="ui purple basic button"><i class="users icon"></i>
-                                        <a href="{{ path('view_book', {id: x.id}) }}">Show More</a></div>
+                                        <a href="{{ path('viewbook', {id: x.id}) }}">Show More</a></div>
                                 </div>
                             </div>
                         {% endfor %}

@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ui link cards">
+                {% for x in home %}
+                <div class="card" style="box-shadow: 10px 10px 25px 0 rgba(186, 177, 186, 1);">
+                    <div class="image">
+                        <img src="{{ asset('images/' ~ (x.getImage())) }}">
+                    </div>
+                    <div class="content">
+                        <div class="header">{{ x.name }}</div>
+                        <div class="meta">
+                            <a>{{ x.author }}</a>
+                        </div>
+                        <div class="description">
+                            <a href="{{ path('viewbook', {id: x.id}) }}">Show More</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

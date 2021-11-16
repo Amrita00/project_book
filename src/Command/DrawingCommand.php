@@ -8,35 +8,31 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use League\CLImate\CLImate;
 
 class DrawingCommand extends Command
 {
-    protected static $defaultName = 'Drawing';
+    protected static $defaultName = 'app:drawing';
     protected static $defaultDescription = 'Add a short description for your command';
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $climate = new CLImate();
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
+        $climate->animation('hello')->enterFrom('right');
+        $climate->animation('hello')->enterFrom('left');
+        $climate->animation('hello')->enterFrom('top');
+        $climate->animation('hello')->enterFrom('bottom');
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-
-        return Command::SUCCESS;
+        $climate->animation('hello')->exitTo('right');
+        $climate->animation('hello')->exitTo('left');
+        $climate->animation('hello')->exitTo('top');
+        $climate->animation('hello')->exitTo('bottom');
+        return true;
     }
 }

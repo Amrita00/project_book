@@ -47,6 +47,22 @@ class ShowBookController extends AbstractController
     }
 
     /**
+     * @Route("/index/view/book/{id}", name="viewbook", methods={"GET"})
+     */
+    public function showUser(int $id): Response
+    {
+        $book = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->find($id);
+
+
+        return $this->render('show_book/User_viewdetails.html.twig', [
+            'view' => $book,
+
+        ]);
+    }
+
+    /**
      * @Route("home/edit/book/{id}", name="edit_book", methods={"GET", "POST"} )
      */
     public function edit( Request $request,int $id): Response
