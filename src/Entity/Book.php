@@ -39,6 +39,13 @@ class Book
      */
     private $author;
 
+    /** @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please, enter the price")
+     * @Assert\GreaterThan(value=0)
+     * @Assert\Regex(pattern="/^[1-9]+[0-9]*$")
+     *
+     */
+    private $price;
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Please, upload the photo.")
@@ -83,6 +90,22 @@ class Book
     {
         $this->description = $description;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
     }
 
 

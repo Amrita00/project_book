@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-8">
 
-            <table  class="ui celled structured table">
+            <table class="ui celled structured table">
                 <tr>
                     <th>Book Name</th>
                     <th>Description</th>
@@ -18,7 +18,11 @@
                     <td>{{ view.name }}</td>
                     <td>{{ view.description }}</td>
                     <td>{{ view.author }}</td>
-                    <td><a>Rent</a></td>
+                    <td>
+                        <div class="ui button" tabindex="0">
+                            Rent
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>

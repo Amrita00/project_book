@@ -4,6 +4,28 @@
 
 {% block body %}
     {% include('partials/user_nav.html.twig') %}
-    {% include('partials/viewdetails.html.twig') %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ui items">
+                    <div class="item">
+                        <a class="ui small image">
+                            <img src="{{ asset('images/' ~ (view.getImage())) }}">
+                        </a>
+                        <div class="content">
+                            <a class="header">{{ view.name }}</a>
+                            <div class="meta">
+                                <span class="price">Rs {{ view.price }}</span>
+                                <span class="stay">{{ view.author }}</span>
+                            </div>
+                            <div class="description">
+                                <p>{{ view.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

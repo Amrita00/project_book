@@ -22,4 +22,21 @@ $('#searchicon')
 
     });
 
+$('#search_icon')
+    .on('click', function () {
+        var apisearch = $(this).prev('#search_bar').val();
 
+        $.ajax({
+            type: "POST",
+            url: "/api/search",
+            data: {sapi: apisearch},
+            success: function (response) {
+                $('.api').html(response.api2);
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+
+    });
