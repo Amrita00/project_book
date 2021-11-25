@@ -6,24 +6,21 @@
     {% include('partials/user_nav.html.twig') %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="ui items">
-                    <div class="item">
-                        <a class="ui small image">
-                            <img src="{{ asset('images/' ~ (view.getImage())) }}">
-                        </a>
-                        <div class="content">
-                            <a class="header">{{ view.name }}</a>
-                            <div class="meta">
-                                <span class="price">Rs {{ view.price }}</span>
-                                <span class="stay">{{ view.author }}</span>
-                            </div>
-                            <div class="description">
-                                <p>{{ view.description }}</p>
-                            </div>
-                        </div>
-                    </div>
+            <div id="container">
+                <div class="product-details">
+
+                    <h1>{{ view.name }}</h1>
+                    <p class="information">{{ view.description }}</p>
+                    <p class="information">~ {{ view.author }}</p>
+                    <button class="btn">
+                        <a href="{{ path('rent_book', {id: view.id}) }}">Rent</a>
                 </div>
+                <div class="product-image">
+                    <div class="ribbon ribbon-top-right"><span>Rs {{ view.price }}</span></div>
+                    <img src="{{ asset('images/' ~ (view.getImage())) }}"
+                         alt="">
+                </div>
+
             </div>
         </div>
     </div>

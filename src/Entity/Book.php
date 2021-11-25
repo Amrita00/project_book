@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,13 +27,13 @@ class Book
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Please, enter title.")
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Please, enter description.")
      */
-    private $description;
+    private ?string $description;
 
     /**
      *@ORM\Column(type="string", length=255)
@@ -52,6 +54,18 @@ class Book
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RentBook::class, mappedBy="book")
+     */
+    private Collection $rentBooks;
+
+    public function __construct()
+    {
+        $this->rentBooks = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -119,6 +133,34 @@ class Book
         $this->image = $image;
     }
 
+    /**
+     * @return Collection|RentBook[]
+     */
+    public function getRentBooks(): Collection
+    {
+        return $this->rentBooks;
+    }
 
+    public function addRentBook(RentBook $rentBook): self
+    {
+        if (!$this->rentBooks->contains($rentBook)) {
+            $this->rentBooks[] = $rentBook;
+            $rentBook->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRentBook(RentBook $rentBook): self
+    {
+        if ($this->rentBooks->removeElement($rentBook)) {
+            // set the owning side to null (unless already changed)
+            if ($rentBook->getBook() === $this) {
+                $rentBook->setBook(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

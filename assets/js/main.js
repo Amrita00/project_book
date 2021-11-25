@@ -5,7 +5,7 @@ $('.close.icon').on('click', function () {
 
 $('#searchicon')
     .on('click', function () {
-        var searchrequest = $(this).prev('#searchbar').val();
+        const searchrequest = $(this).prev('#searchbar').val();
 
         $.ajax({
             type: "POST",
@@ -31,11 +31,10 @@ $('#search_icon')
             url: "/api/search",
             data: {sapi: apisearch},
             success: function (response) {
-                $('.api').html(response.api2);
-                console.log(response);
+                $('.api').html(response);
             },
             error: function (response) {
-                console.log(response);
+                $('.api').html(response);
             }
         });
 

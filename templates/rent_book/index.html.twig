@@ -1,20 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RentBookController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/projectbook/src/Controller/RentBookController.php'|file_link(0) }}">src/Controller/RentBookController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/projectbook/templates/rent_book/index.html.twig'|file_link(0) }}">templates/rent_book/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-top border-bottom text-center"><a href="#"> Back to shop</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="left border">
+                                <div class="row"><span class="header">Payment</span>
+                                </div>
+                                {{ form_start(form,{'atrr':{novalidate: 'novalidate'}}) }}
+                                {% for field in form %}
+                                    {% if field.vars.name != '_token' %}
+                                        <div class="field">
+                                            <label>{{ form_label(field) }}</label>
+                                            {{ form_widget(field) }}
+                                            {{ form_errors(field) }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <button class="btn" type="submit">Place order</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                        <div class="col-md-5">
+                            <div class="right border">
+                                <div class="header">Order Summary</div>
+                                <p>1 item</p>
+                                <div class="row item">
+                                    <div class="col-5 align-self-center"><img class="img-fluid"
+                                                                              src="{{ asset('images/' ~ (book.getImage())) }}">
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="row"><b> {{ book.name }}</b></div>
+                                        <div class="row text-muted">{{ book.author }}</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row lower">
+                                    <div class="col text-left"><b>Total to pay</b></div><br/>
+                                    <div class="col text-right"><b>Rs {{ book.price }}</b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

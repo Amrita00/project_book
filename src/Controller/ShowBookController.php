@@ -33,7 +33,7 @@ class ShowBookController extends AbstractController
     /**
      * @Route("/home/view/book/{id}", name="view_book", methods={"GET"})
      */
-    public function show(int $id): Response
+    public function showAdmin(int $id): Response
     {
         $book = $this->getDoctrine()
             ->getRepository(Book::class)

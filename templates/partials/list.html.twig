@@ -3,25 +3,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="con">
-                    <div class="ui special cards">
-                        {% for x in home %}
-                            <div class="ui card" style="box-shadow: 10px 10px 25px 0 rgba(186,177,186,1);">
-                                    <img style="height: 90%;" src="{{ asset('images/' ~ (x.getImage())) }}">
-                                <div class="content">
-                                    <a class="header">{{ x.name }}</a>
-                                    <div class="meta">
-                                        <span class="date">{{ x.author }}</span>
-                                    </div>
-                                </div>
-                                <div class="extra content" style="padding-top: 0">
-                                    <div class="ui purple basic button"><i class="users icon"></i>
-                                        <a href="{{ path('viewbook', {id: x.id}) }}">Show More</a></div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                {% for x in home %}
+                <div class="first hero">
+                    <img class="hero-profile-img"
+                         src="{{ asset('images/' ~ (x.getImage())) }}"
+                         alt="">
+                    <div class="hero-description-bk"></div>
+                    <div class="hero-btn">
+                        <a href="{{ path('viewbook', {id: x.id}) }}">Learn More</a>
                     </div>
+                </div>
+                {%  endfor %}
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

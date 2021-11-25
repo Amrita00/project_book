@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\NewsApi;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +20,29 @@ class NewsApiRepository extends ServiceEntityRepository
         parent::__construct($registry, NewsApi::class);
     }
 
-    // /**
-    //  * @return NewsApi[] Returns an array of NewsApi objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @param $searchtitle
+     * @return Query
+     */
 
-    /*
-    public function findOneBySomeField($value): ?NewsApi
+    public function findbyName($searchtitle): Query
     {
         return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('n.author LIKE :val')
+            ->setParameter('val', $searchtitle)
             ->getQuery()
-            ->getOneOrNullResult()
         ;
     }
-    */
+
+
+    public function findByUrl($url): array //return format is query
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.url = :val')
+            ->setParameter('val', $url)
+            ->getQuery()
+            ->getResult();
+
+    }
+
 }

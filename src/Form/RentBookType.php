@@ -16,12 +16,16 @@ class RentBookType extends AbstractType
         $builder
             ->add('rent_date', DateType::class,[
                 'widget' => 'single_text',
+                'attr' => array(
+                    'min' => date('Y-m-d')
+                ),
                 'data' => new \DateTime(),
-                'disabled' => true
             ])
             ->add('return_date',DateType::class,[
                 'widget' => 'single_text',
-                'data' => new \DateTime()
+                'attr' => array(
+                    'min' => date('Y-m-d')
+                ),
             ])
 
         ;

@@ -3,50 +3,6 @@
 {% block title %}API{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="ui secondary menu">
-                    <a class="item">Browse</a>
-{#                    <a class="item" href="{{ path('api') }}">View Top Best Seller Books</a>#}
-                    <div class="right menu">
-                        <a class="item" href="{{ path('app_register') }}">Register</a>
-                        <a class="item" href="{{ path('app_login') }}">Login</a>
-                        <a class="item">
-                            <div class="ui search">
-                                <div class="ui icon input" style="width: 180px;">
-                                    <input class="prompt" id="search_bar" type="text" placeholder="Search book...">
-                                    <i id="search_icon" class="search link icon"></i>
-                                </div>
-                                {#                                <div class="results"></div>#}
-                            </div>
-                        </a>
-                        {#                    <a class="item" href="{{ path('app_logout') }}">Log Out</a>#}
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="api">
-                <table class="ui celled table">
-                    <thead>
-                    <tr><th>Name</th>
-                    </tr></thead>
-                    <tbody>
-                    {% for x in api2.articles %}
-                        <tr>
-                            <td data-label="Name">{{ x.title }}</td>
-
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'partials/api_nav.html.twig' %}
+    <div class="api"></div>
 {% endblock %}

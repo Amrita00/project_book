@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -41,13 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank(message="Username should not be empty")
      */
-    private $username;
+    private string $username;
 
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
 
     /**
@@ -55,8 +57,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Password should not be empty")
      */
-    private $password;
+    private string $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RentBook::class, mappedBy="user")
+     */
+    private Collection $rentBooks;
+
+    public function __construct()
+    {
+        $this->rentBooks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,4 +183,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|RentBook[]
+     */
+    public function getRentBooks(): Collection
+    {
+        return $this->rentBooks;
+    }
+
+    public function addRentBook(RentBook $rentBook): self
+    {
+        if (!$this->rentBooks->contains($rentBook)) {
+            $this->rentBooks[] = $rentBook;
+            $rentBook->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRentBook(RentBook $rentBook): self
+    {
+        if ($this->rentBooks->removeElement($rentBook)) {
+            // set the owning side to null (unless already changed)
+            if ($rentBook->getUser() === $this) {
+                $rentBook->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -1,22 +1,45 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="ui celled table">
-                <thead>
-                <tr><th>Name</th>
-                    <th>Age</th>
-                    <th>Job</th>
-                </tr></thead>
-                <tbody>
-                {% for x in api.results %}
-                <tr>
-                    <td data-label="Name">{{ x.list_name }}</td>
-                    <td data-label="Age">{{ x.newest_published_date }}</td>
-                    <td data-label="Job">{{ x.updated }}</td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+<div class="api">
+    {% if api2 | length > 0 %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ui message">
+                        <div class="header">
+                            Result Found: {{ api2.totalResults }}
+                        </div>
+                    </div>
+                    {% for x in api2.articles %}
+                        <div class="ui divided items" style="padding: 10px 10px 10px 10px">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{{ x.urlToImage }}">
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{ x.title }}</a>
+                                    <div class="meta">
+                                        <span class="cinema">{{ x.author }}</span>
+                                        <span class="cinema">{{ x.publishedAt }}</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>{{ x.description }}</p>
+                                    </div>
+                                    <div class="extra">
+                                        <button class="ui primary basic button">
+                                            <a href="{{ x.url }}"> Read More</a>
+                                            <i class="right chevron icon"></i>
+                                        </button>
+                                        <a class="ui right floated label">
+                                            <i class="book icon"></i>
+                                            {{ x.source.name }}
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
