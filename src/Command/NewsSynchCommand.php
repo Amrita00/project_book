@@ -62,7 +62,7 @@ class NewsSynchCommand extends Command
         ]);
 
         try {
-
+            $this->newsService->processNews($output);
         } catch (\Exception $exception) {
             $output->writeln([
                 "<comment>{$exception->getMessage()}</comment>",

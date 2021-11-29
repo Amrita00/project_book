@@ -6,6 +6,7 @@ use App\Entity\NewsApi;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use phpDocumentor\Reflection\Types\True_;
 use PHPUnit\Util\Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -52,7 +53,7 @@ class NewsService
         ];
         $response = $client->request(
             'GET',
-            'v2/everything?q=' . $searchtitle . '&apiKey=' . self::KEY,
+            'v2/everything?q=' . $searchtitle . '&apiKey=' . self::KEY . '&sortBy=publishedAt',
             [
                 'headers' => $headers
             ]
@@ -83,53 +84,29 @@ class NewsService
             ]
         )->getBody()->getContents();
 
-        return json_decode($response, true); // json_decode convert json response into array whereas json encode convert array into json
+        return json_decode($response, true);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function processNews($output)
+    public function processNews()
     {
         $news = $this->fetchNewsDetails();
 
         /*for each article found in news,if the api response object title and description is null then it will continue to the next iteration */
         foreach ($news['articles'] as $article) {
 
-            if (
-                empty($article['title']) &&
-                empty($article['url']) &&
-                empty($article['description']) &&
-                empty($article['author'])
-            ) {
-                continue;
-            }
-
             $url = $article['url'];
             /* to check if url of the api response exist. $article['url] is written like this because the object url is found in array of article */
             if ($this->checkNewsExists($url)) {
-                $output->writeln([
-                    '<comment>News in database detected, exiting</comment>',
-                ]);
                 $this->updateNews($article);
-                $output->writeln([
-                    '<info>News updated</info>',
-                ]);
 
             } else {
-
-                $output->writeln([
-                    'News Details fetched, saving into database'
-                ]);
-
-                $this->saveNews($article);
-
-                $output->writeln([
-                    'News saved'
-                ]);
+               return $this->saveNews($article);
             }
-
         }
+
     }
 
     /**
@@ -205,8 +182,9 @@ class NewsService
 
     /**
      * @param $news
+     * @return NewsApi
      */
-    public function saveNews($news)
+    public function saveNews($news): NewsApi
     {
 
         $info = new NewsApi();
@@ -227,6 +205,8 @@ class NewsService
 
         $this->entityManager->persist($info);
         $this->entityManager->flush();
+
+        return $info;
     }
 
 

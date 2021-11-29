@@ -18,16 +18,16 @@
                                     <a class="header">{{ x.title }}</a>
                                     <div class="meta">
                                         <span class="cinema">{{ x.author }}</span>
-                                        <span class="cinema">{{ x.publishedAt }}</span>
+                                        <span class="cinema">{{ x.publishedAt|date("d F Y H:i:s") }}</span>
                                     </div>
                                     <div class="description">
                                         <p>{{ x.description }}</p>
                                     </div>
                                     <div class="extra">
-                                        <button class="ui primary basic button">
+
                                             <a href="{{ x.url }}"> Read More</a>
                                             <i class="right chevron icon"></i>
-                                        </button>
+
                                         <a class="ui right floated label">
                                             <i class="book icon"></i>
                                             {{ x.source.name }}
