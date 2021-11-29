@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\NewsApi;
 use App\Services\NewsService;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,13 +29,24 @@ class APIController extends AbstractController
             ]);
         } else {
             $response = $newdetails->getNews($searchtitle);
-            return $this->render('partials/api.html.twig', [
+            return $this->render('partials/api_viewlist.html.twig', [
                 'api2' => $response,
             ]);
         }
     }
 
-
+    /**
+     * @Route("/api/view", name="api_viewnews")
+     */
+    public function getNews(): Response
+    {
+        $news = $this->getDoctrine()
+            ->getRepository(NewsApi::class)
+            ->findAll();
+        return $this->render('api/view_latestnews.html.twig',[
+           'news' => $news
+        ]);
+    }
 
 
 }

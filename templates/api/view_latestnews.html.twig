@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}API{% endblock %}
+
+{% block body %}
+    {% include 'partials/api_navbar.html.twig' %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% for n in news %}
+
+                    <div class="card-view">
+                        <div class="container">
+                            <a href='{{ n.url }}'>
+                                <div class="tag_name red">View News</div>
+                            </a>
+                            <div class="company">
+                                <div class="c_logo">
+                                    <a href="{{ n.url }}"><img src="{{ asset('images/' ~ (n.getUrlToImage())) }}"
+                                                               alt="Focus Lab"></a>
+                                </div>
+                                <div class="c_info">
+                                    <a href="{{ n.url }}" class="c_name">{{ n.title }}</a><br>
+                                    <span class="c_industry">{{ n.author }}</span><br>
+                                </div>
+                                <div class="c_content">
+                                    <p><a href='{{ n.url }}' class="title"></a>
+                                    <p>{{ n.description }}</p>
+                                </div>
+                            </div> <!-- end .company -->
+                        </div> <!-- end .container -->
+                    </div> <!-- end card -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

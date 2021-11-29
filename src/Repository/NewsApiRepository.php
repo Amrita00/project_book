@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\NewsApi;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,19 +31,28 @@ class NewsApiRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('n')
             ->where('n.author LIKE :val')
             ->setParameter('val', $searchtitle)
-            ->getQuery()
-        ;
+            ->getQuery();
     }
 
 
-    public function findByUrl($url): array //return format is query
+    public function findByUrl($url)
+    {
+        $result = $this->createQueryBuilder('n')
+            ->andWhere('n.url = :val')
+            ->setParameter('val', $url)
+            ->getQuery();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByLink($url)
     {
         return $this->createQueryBuilder('n')
             ->andWhere('n.url = :val')
             ->setParameter('val', $url)
             ->getQuery()
-            ->getResult();
-
+            ->getOneOrNullResult()
+        ;
     }
-
 }

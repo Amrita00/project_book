@@ -40,7 +40,7 @@ class ShowBookController extends AbstractController
             ->find($id);
 
 
-        return $this->render('show_book/view_details.html.twig', [
+        return $this->render('show_book/admin_view_details.html.twig', [
             'view' => $book,
 
         ]);
@@ -114,7 +114,7 @@ class ShowBookController extends AbstractController
 
         $result = $search->getResult();
 
-        $data = $this->renderView('partials/list.html.twig', [
+        $data = $this->renderView('partials/movie_list.html.twig', [
             'home' => $result
         ]);
 

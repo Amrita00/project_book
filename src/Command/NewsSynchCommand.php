@@ -62,37 +62,7 @@ class NewsSynchCommand extends Command
         ]);
 
         try {
-            $news = $this->newsService->fetchNewsDetails($output);
 
-
-            /*for each article found in news,if the api response object title and description is null then it will continue to the next iteration */
-            foreach ($news['articles'] as $article) {
-
-                if (empty($article['title']) && empty($article['description']) && empty($article['author'])) {
-                    continue;
-                }
-
-
-                $url = $article['url'];
-                /* to check if url of the api response exist. $article['url] is written like this because the object url is found in array of article */
-                if ($this->newsService->checkNewsExists($url)) {
-                    $this->newsService->updateNews($article, $output);
-                    $output->writeln([
-                        '<comment>News in database detected, exiting</comment>',
-                    ]);
-                    continue; // continues with the next iteration in the if loop.
-                }
-
-                $output->writeln([
-                    'News Details fetched, saving into database'
-                ]);
-
-                $this->newsService->saveNews($article);
-
-                $output->writeln([
-                    'News saved'
-                ]);
-            }
         } catch (\Exception $exception) {
             $output->writeln([
                 "<comment>{$exception->getMessage()}</comment>",
