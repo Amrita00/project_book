@@ -3,50 +3,49 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="card">
-                <div class="card-top border-bottom text-center"><a href="#"> Back to shop</a>
+    <div class='con'>
+        <div class='window'>
+            <div class='order-info'>
+                <div class='order-info-content'>
+                    <h2>Order Summary</h2>
+                    <div class='line'></div>
+                    <img class="img-fluid"
+                         src="{{ asset('images/' ~ (book.getImage())) }}" style="height: 70%; width: 100%; ">
+                    <div class='line'></div>
+                    <span style='float:left;'>
+                             <div><strong>Name:</strong></div>
+                             <div><strong>Author:</strong></div>
+                        <strong>Total:</strong>
+                    </span>
+                    <span style='float:right; text-align:right;'>
+                            <div>{{ book.name }}</div>
+                            <div>{{ book.author }}</div>
+                        Rs {{ book.price }}
+                    </span>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="left border">
-                                <div class="row"><span class="header">Payment</span>
-                                </div>
+            </div>
+            <div class='credit-info'>
+                <div class='credit-info-content'>
+                    <div class="col-md-12">
+                        <legend><h2 class="ui header">Place Order</h2></legend>
+                        <div class="ui segment">
+                            <div class="ui form">
                                 {{ form_start(form,{'atrr':{novalidate: 'novalidate'}}) }}
                                 {% for field in form %}
                                     {% if field.vars.name != '_token' %}
                                         <div class="field">
-                                            <label>{{ form_label(field) }}</label>
+                                            <h4 style="padding-top: 20px; padding-bottom: 0">{{ form_label(field) }}</h4>
                                             {{ form_widget(field) }}
                                             {{ form_errors(field) }}
                                         </div>
                                     {% endif %}
-                                {% endfor %}
-                                <button class="btn" type="submit">Place order</button>
+                                {% endfor %}<br/>
+                                <button class="fluid positive ui button" type="submit">Place order</button><br>
+                                <button class="fluid negative ui button" type="submit">
+                                    <a href="{{ path('user_home') }}" style="color: white">Cancel</a>
+                                </button>
                             </div>
                             {{ form_end(form) }}
-                        </div>
-                        <div class="col-md-5">
-                            <div class="right border">
-                                <div class="header">Order Summary</div>
-                                <p>1 item</p>
-                                <div class="row item">
-                                    <div class="col-5 align-self-center"><img class="img-fluid"
-                                                                              src="{{ asset('images/' ~ (book.getImage())) }}">
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="row"><b> {{ book.name }}</b></div>
-                                        <div class="row text-muted">{{ book.author }}</div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row lower">
-                                    <div class="col text-left"><b>Total to pay</b></div><br/>
-                                    <div class="col text-right"><b>Rs {{ book.price }}</b></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

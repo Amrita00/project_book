@@ -1,22 +1,38 @@
 <div class="container1">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="con">
+
+            <section class="cards-wrapper">
                 {% for x in home %}
-                <div class="first hero">
-                    <img class="hero-profile-img"
-                         src="{{ asset('images/' ~ (x.getImage())) }}"
-                         alt="">
-                    <div class="hero-description-bk"></div>
-                    <div class="hero-btn">
-                        <a href="{{ path('viewbook', {id: x.id}) }}">Learn More</a>
+                    <div class="card-grid-space">
+                        <div class="col-md-12">
+
+                            <a class="card" href="{{ path('viewbook', {id: x.id}) }}">
+                                <div class="ribbon ribbon-top-right"><span>Rs {{ x.price }}</span></div>
+                                <img class="hero-profile-img"
+                                     src="{{ asset('images/' ~ (x.getImage())) }}"
+                                     alt="">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                {%  endfor %}
-                </div>
-            </div>
+                {% endfor %}
+            </section>
+
+            {# <div class="con"> #}
+            {# {% for x in home %} #}
+            {# <div class="first hero"> #}
+            {# <img class="hero-profile-img" #}
+            {# src="{{ asset('images/' ~ (x.getImage())) }}" #}
+            {# alt=""> #}
+            {# <div class="hero-description-bk"></div> #}
+            {# <div class="hero-btn"> #}
+            {# <a href="{{ path('viewbook', {id: x.id}) }}">Learn More</a> #}
+            {# </div> #}
+            {# </div> #}
+            {# {% endfor %} #}
+            {# </div> #}
+
         </div>
     </div>
 </div>
-</div>
+

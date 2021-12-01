@@ -6,21 +6,32 @@
     {% include('partials/user_viewdetails_navbar.html.twig') %}
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12">
+                {% for message in app.flashes('success') %}
+                    <div class="ui success message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
             <div id="container">
                 <div class="product-details">
-
                     <h1>{{ view.name }}</h1>
                     <p class="information">{{ view.description }}</p>
                     <p class="information">~ {{ view.author }}</p>
-                    <button class="btn">
-                        <a href="{{ path('rent_book', {id: view.id}) }}">Rent</a>
+                    {% if rented == false %}
+                        <button class="btn" id="rent-btn">
+                            <a href="{{ path('rent_book', {id: view.id}) }}" id="rent">Rent</a>
+                        </button>
+                    {% endif %}
                 </div>
                 <div class="product-image">
                     <div class="ribbon ribbon-top-right"><span>Rs {{ view.price }}</span></div>
                     <img src="{{ asset('images/' ~ (view.getImage())) }}"
                          alt="">
                 </div>
-
             </div>
         </div>
     </div>

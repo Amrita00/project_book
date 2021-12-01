@@ -103,7 +103,7 @@ class NewsService
                 $this->updateNews($article);
 
             } else {
-               return $this->saveNews($article);
+                $this->saveNews($article);
             }
         }
 

@@ -18,10 +18,12 @@ class RentBookController extends AbstractController
      */
     public function getRentBook(Request $request): Response
     {
-        $id = $request->get('id');
+        $bookId = $request->get('id');
+
+
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
-            ->find($id);
+            ->find($bookId);
 
         $rent = new RentBook();
         $form = $this->createForm(RentBookType::class, $rent);

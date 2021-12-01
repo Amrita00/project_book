@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\RentBook;
 use App\Entity\User;
 use App\Form\BookType;
 use App\Form\EditBookType;
@@ -51,21 +52,35 @@ class ShowBookController extends AbstractController
      */
     public function showUser(int $id): Response
     {
+        $userId = $this->getUser();
+
+        $rentBook = $this->getDoctrine()
+            ->getRepository(RentBook::class)
+            ->findOneBy([
+                'user_id' => $userId,
+                'book_id' => $id
+            ]);
+
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
             ->find($id);
 
+        if (!empty($rentBook)) {
+
+            $this->addFlash('success', 'Already rented the book!');
+
+        }
 
         return $this->render('show_book/User_viewdetails.html.twig', [
             'view' => $book,
-
+            'rented' => !empty($rentBook)
         ]);
     }
 
     /**
      * @Route("home/edit/book/{id}", name="edit_book", methods={"GET", "POST"} )
      */
-    public function edit( Request $request,int $id): Response
+    public function edit(Request $request, int $id): Response
     {
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
@@ -78,13 +93,13 @@ class ShowBookController extends AbstractController
 
             $image = $book->getImage();
 
-            $imageName =md5(uniqid()).'.'.$image->guessExtension();
-            try{
+            $imageName = md5(uniqid()) . '.' . $image->guessExtension();
+            try {
                 $image->move(
                     $this->getParameter('image_directory'),
                     $imageName
                 );
-            }catch (FileException $e){
+            } catch (FileException $e) {
                 //TODO
             }
             $book->setImage($imageName);
@@ -103,6 +118,7 @@ class ShowBookController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("search/book", name="search_book", methods={"GET", "POST"} )
      */
@@ -122,7 +138,6 @@ class ShowBookController extends AbstractController
             'searchBook' => $data
         ]);
     }
-
 
 
 }

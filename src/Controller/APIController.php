@@ -48,7 +48,7 @@ class APIController extends AbstractController
     public function getLatestNews(NewsService $newsService): Response
     {
         try {
-           $info = $newsService->processNews();
+           $newsService->processNews();
 
         } catch (Exception $exception) {
             $this->addFlash('error', $exception->getMessage());
@@ -58,7 +58,7 @@ class APIController extends AbstractController
         }
         $news = $this->getDoctrine()
             ->getRepository(NewsApi::class)
-            ->findAll();
+            ->findBy([],['publishedAt' => 'DESC']);
         return $this->render('api/view_latestnews.html.twig', [
             'news' => $news
         ]);

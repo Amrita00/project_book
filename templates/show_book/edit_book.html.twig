@@ -31,10 +31,13 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                        <button type="submit" id="myBtn" class="ui primary button" style="margin-left: 126px;">Submit</button><br/><br/>
-                        <button type="submit" id="cancel" class="ui button" style="margin-left: 126px;">
-                            <a href="{{ path('show_book') }}" style="color: white">Cancel</a></button>
-
+                        <div class="inline" style="display: inline-block">
+                            <button type="submit" id="myBtn" class="ui primary button">
+                                Submit
+                            </button>
+                            <button type="submit" id="cancel" class="ui red button">
+                                <a href="{{ path('show_book') }}" style="color: white">Cancel</a></button>
+                        </div>
                         {{ form_end(form) }}
                     </div>
                 </div>
